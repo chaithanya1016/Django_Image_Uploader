@@ -1,0 +1,43 @@
+<!DOCTYPE html> {% load static %}
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Image Upload</title>
+    <link rel="stylesheet" href="{% static 'css/bootstrap.css' %}" />
+</head>
+
+<body>
+    <div class="container">
+        <!-- Messages starts Here -->
+
+        <div>
+            {% if messages %} {% for message in messages %}
+            <p {% if message.tags %} class="text-center alert alert-success {{message.tags}}" {% endif %}>
+                {{message}}
+            </p>
+            {% endfor %} {% endif %}
+        </div>
+
+        <!-- Image Form -->
+
+        <div class="py-5 text-center bg-secondary text-white">
+            <h3 class="mb-3">Image Upload</h3>
+
+            <form method="post" enctype="multipart/form-data">
+                {% csrf_token %} {{ form.as_p }}
+                <input type="submit" class="btn btn-danger" value="Upload" />
+            </form>
+        </div>
+
+        <div>
+            {% if images %} {% for image in images %}
+
+            <img src="{{image.photo.url}}" alt="Card image cap" height="200px" /> {% endfor %} {% endif %}
+        </div>
+    </div>
+</body>
+
+</html>
